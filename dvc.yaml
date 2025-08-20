@@ -1,0 +1,46 @@
+stages:
+  prepare:
+    cmd: python src/data/split_dataset.py
+    deps:
+    - data/raw_data/
+    - src/data/split_dataset.py
+    outs:
+    - data/processed_data/
+  normalize:
+    cmd: python src/data/normalize_dataset.py
+    deps:
+    - data/processed_data/
+    - src/data/normalize_dataset.py
+    outs:
+    - data/normalized_data
+  gridsearch:
+    cmd: python src/models/gridsearch_model.py
+    deps:
+    - data/normalized_data/
+    - data/processed_data/
+    - src/models/gridsearch_model.py
+    outs:
+    - metrics/cv_results.csv
+    - metrics/cv_results.pkl
+    - models/best_params.pkl
+  training:
+    cmd: python src/models/train_model.py
+    deps:
+    - data/normalized_data/
+    - data/processed_data/
+    - models/best_params.pkl
+    - src/models/train_model.py
+    outs:
+    - models/xgb_model.joblib
+  evaluation:
+    cmd: python src/models/evaluate_model.py
+    deps:
+    - data/normalized_data/
+    - data/processed_data/
+    - models/
+    - src/models/evaluate_model.py
+    outs:
+    - data/prediction.csv
+    metrics:
+    - metrics/scores.json:
+        cache: false
