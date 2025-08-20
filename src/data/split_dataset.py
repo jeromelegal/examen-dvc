@@ -4,8 +4,8 @@ import pandas as pd
 import os
 
 ### Path
-rawdata_path = os.path.join("..", "..", "data", "raw_data/")
-processed_data_path = os.path.join("..", "..", "data", "processed_data/")
+rawdata_path = os.path.join("data", "raw_data/")
+processed_data_path = os.path.join("data", "processed_data/")
 
 
 ### Import raw data
@@ -22,11 +22,9 @@ X_train, X_test, y_train, y_test =  train_test_split(X,
                                                      test_size=0.2, 
                                                      random_state=1,
                                                      )
-
+os.makedirs(processed_data_path, exist_ok=True)
 ### Save splitted data
 X_train.to_csv(processed_data_path + 'X_train.csv', index=False)
 X_test.to_csv(processed_data_path + 'X_test.csv', index=False)
 y_train.to_csv(processed_data_path + 'y_train.csv', index=False)
 y_test.to_csv(processed_data_path + 'y_test.csv', index=False)
-
-# %%

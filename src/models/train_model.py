@@ -6,14 +6,15 @@ import pickle
 import joblib
 
 ### Path
-processed_data_path = os.path.join("..", "..", "data", "processed_data/")
-models_path = os.path.join("..", "..", "models/")
+normalized_data_path = os.path.join("data", "normalized_data/")
+processed_data_path = os.path.join("data", "processed_data/")
+models_path = os.path.join("models/")
 
 ### Import data
-X_train_scaled = pd.read_csv(processed_data_path + 'X_train_scaled.csv')
+X_train_scaled = pd.read_csv(normalized_data_path + 'X_train_scaled.csv')
 y_train = pd.read_csv(processed_data_path + 'y_train.csv')
 
-with open("../models/best_params.pkl", "rb") as f:
+with open(models_path + "best_params.pkl", "rb") as f:
     params = pickle.load(f)
 
 ### Model

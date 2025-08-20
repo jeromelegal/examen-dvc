@@ -6,10 +6,11 @@ import os
 import pickle
 
 ### Path
-processed_data_path = os.path.join("..", "..", "data", "processed_data/")
+processed_data_path = os.path.join("data", "processed_data/")
+normalized_data_path = os.path.join("data", "normalized_data/")
 
 ### Import data
-X_train_scaled = pd.read_csv(processed_data_path + 'X_train_scaled.csv')
+X_train_scaled = pd.read_csv(normalized_data_path + 'X_train_scaled.csv')
 y_train = pd.read_csv(processed_data_path + 'y_train.csv')
 
 ### Base model instance
@@ -44,13 +45,15 @@ grid = GridSearchCV(
 grid.fit(X_train_scaled.values, y_train.values)
 
 ### Save best params
-with open("../models/best_params.pkl", "wb") as f:
+os.makedirs("models/", exist_ok=True)
+with open("models/best_params.pkl", "wb") as f:
     pickle.dump(grid.best_params_, f)
 
 ### Save CV results
-with open("cv_results.pkl", "wb") as f:
+os.makedirs("metrics/", exist_ok=True)
+with open("metrics/cv_results.pkl", "wb") as f:
     pickle.dump(grid.cv_results_, f)
 
 cv_df = pd.DataFrame(grid.cv_results_)
-cv_df.to_csv("cv_results.csv", index=False)
+cv_df.to_csv("metrics/cv_results.csv", index=False)
 

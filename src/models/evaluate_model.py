@@ -6,14 +6,15 @@ import json
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 
 ### Path
-processed_data_path = os.path.join("..", "..", "data", "processed_data/")
-models_path = os.path.join("..", "..", "models/")
-metrics_path = os.path.join("..", "..", "metrics/")
-data_path = os.path.join("..", "..", "data/")
+processed_data_path = os.path.join("data", "processed_data/")
+normalized_data_path = os.path.join("data", "normalized_data/")
+models_path = os.path.join("models/")
+metrics_path = os.path.join("metrics/")
+data_path = os.path.join("data/")
 
 ### Import data
-X_train_scaled = pd.read_csv(processed_data_path + 'X_train_scaled.csv')
-X_test_scaled = pd.read_csv(processed_data_path + 'X_test_scaled.csv')
+X_train_scaled = pd.read_csv(normalized_data_path + 'X_train_scaled.csv')
+X_test_scaled = pd.read_csv(normalized_data_path + 'X_test_scaled.csv')
 y_train = pd.read_csv(processed_data_path + 'y_train.csv')
 y_test = pd.read_csv(processed_data_path + 'y_test.csv')
 
