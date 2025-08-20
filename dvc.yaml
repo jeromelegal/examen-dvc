@@ -5,14 +5,18 @@ stages:
     - data/raw_data/
     - src/data/split_dataset.py
     outs:
-    - data/processed_data/
+    - data/processed_data/X_train.csv
+    - data/processed_data/X_test.csv
+    - data/processed_data/y_train.csv
+    - data/processed_data/y_test.csv
   normalize:
     cmd: python src/data/normalize_dataset.py
     deps:
     - data/processed_data/
     - src/data/normalize_dataset.py
     outs:
-    - data/normalized_data
+    - data/normalized_data/X_train_scaled.csv
+    - data/normalized_data/X_test_scaled.csv
   gridsearch:
     cmd: python src/models/gridsearch_model.py
     deps:
